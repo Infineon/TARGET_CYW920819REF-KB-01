@@ -54,6 +54,10 @@ CY_RECIPE_EXTRA_LIBS+=-lgcc
 # This device does not have external_sflash
 CY_CORE_OTA_FW_UPGRADE_STORE=on_chip_flash
 
+# board has external LPO
+USE_32K_EXTERNAL_LPO?=1
+CY_CORE_DEFINES+=-DUSE_32K_EXTERNAL_LPO=$(USE_32K_EXTERNAL_LPO)
+
 # Begin address of flash0, on-chip flash
 CY_FLASH0_BEGIN_ADDR=0x00500000
 # Available flash = 128 * 2048 = 256k

@@ -19,3 +19,6 @@ The CYW20819 device and CYW920819REF-KB-01 reference keyboard are supported in M
 For more information, see - http://www.cypress.com/CYW920819REF-KB-01
 
 Max UART baud rate is 115200
+
+External 32 kHz LPO is used by default. To operate without external LPO, set USE_32K_EXTERNAL_LPO=0 on
+make command line or edit default value in CYW920819REF-KB-01.mk.
