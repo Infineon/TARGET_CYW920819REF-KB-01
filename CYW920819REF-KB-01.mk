@@ -61,6 +61,9 @@ CY_INTERNAL_BASELIB_PATH?=$(patsubst %/,%,$(CY_BASELIB_PATH))
 override CY_DEVICESUPPORT_SEARCH_PATH:=$(call CY_MACRO_SEARCH,devicesupport.xml,$(CY_INTERNAL_BASELIB_PATH))
 endif
 
+# declare which stack version to use in COMPONENT folders
+COMPONENTS+=btstack_v1
+
 #
 # Define the features for this target
 # This device does not have external_sflash
@@ -150,7 +153,8 @@ endif # end filter import_deps getlibs get_app_info
 
 # OTA
 ifeq ($(OTA_FW_UPGRADE),1)
-CY_DS2_APP_HEX=$(CY_BSP_PATH)/ds2_app_$(CY_CORE_OTA_FW_UPGRADE_STORE).hex
+DS2_APP_PATH=$(SEARCH_btsdk-ota)/COMPONENT_ds2_app
+CY_DS2_APP_HEX=$(DS2_APP_PATH)/build/$(TARGET)/$(CONFIG)/ds2_app_$(CY_CORE_OTA_FW_UPGRADE_STORE).hex
 CY_APP_OTA=OTA
 CY_APP_OTA_DEFINES=-DOTA_FW_UPGRADE=1
 ifeq ($(CY_APP_SECURE_OTA_FIRMWARE_UPGRADE),1)
@@ -159,19 +163,7 @@ endif
 ifeq ($(CY_CORE_OTA_FW_UPGRADE_STORE),on_chip_flash)
 CY_APP_OTA_DEFINES+=-DOTA_FW_UPGRADE_EFLASH_COPY
 endif
-ifeq ($(CY_CORE_OTA_FW_UPGRADE_STORE),external_sflash)
-CY_APP_OTA_DEFINES+=-DOTA_FW_UPGRADE_SFLASH_COPY -DENABLE_SFLASH_UPGRADE
-CY_APP_OTA_DEFINES+=-DOTA_SFLASH_SECTOR_SIZE=4096
-# default for off-chip encryption
-OFU_UPGRADE_ENCRYPT_SFLASH_DATA ?= 0
-ifeq ($(OFU_UPGRADE_ENCRYPT_SFLASH_DATA),1)
-CY_DS2_APP_HEX=$(CY_BSP_PATH)/ds2_app_$(CY_CORE_OTA_FW_UPGRADE_STORE)_encrypt.hex
-CY_APP_OTA_DEFINES += -DOTA_ENCRYPT_SFLASH_DATA
-endif
-endif
-ifneq ($(CY_DS2_APP_MAKE_SKIP)),1)
--include $(CY_BSP_PATH)/ds2_app.mk
-endif
+-include $(SEARCH_btsdk-ota)/COMPONENT_ds2_app/GNUmakefile
 endif
 
 # use flash offset and length to limit xip range
@@ -207,7 +199,7 @@ CY_CORE_LD_DEFS += APP_DS2_LEN=$(CY_CORE_DS2_LEN)
 CY_CORE_LD_DEFS += DS_LOCATION=$(DS_LOCATION)
 CY_CORE_DS2_EXTRA = _APPDS2_
 # calculate DS2 offset to override value from BTP file
-DS2_LOCATION=$(shell printf "0x%06X" $$(($(SS_LOCATION)+$(CY_FLASH0_LENGTH)-$(CY_CORE_DS2_LEN))))
+DS2_LOCATION=$(shell env printf "0x%06X" $$(($(SS_LOCATION)+$(CY_FLASH0_LENGTH)-$(CY_CORE_DS2_LEN))))
 CY_CORE_CGS_ARGS+=-O ConfigDS2Location:$(DS2_LOCATION)
 endif
 endif
