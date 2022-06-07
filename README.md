@@ -12,11 +12,11 @@ CYW920819REF-KB-01 reference keyboard
 
 ### Additional Information
 
-Infineon also offers a purpose-built Bluetooth&#174; mesh kit that comes with four boards and several on-board sensors to implement more complete mesh application without any external hardware. To learn more about Infineon Bluetooth&#174; mesh evaluation kit, visit www.cypress.com/CYBT-213043-MESH.
+Infineon also offers a purpose-built Bluetooth&#174; mesh kit that comes with four boards and several on-board sensors to implement more complete mesh application without any external hardware. To learn more about Infineon Bluetooth&#174; mesh evaluation kit, visit [CYBT-213043-MESH](https://www.infineon.com/cms/en/product/evaluation-boards/cybt-213043-mesh/).
 
 The CYW20819 device and CYW920819REF-KB-01 reference keyboard are supported in ModusToolbox&#8482; 2.1 (or later). To learn more about ModusToolbox&#8482; and download the latest version, please visit the ModusToolbox&#8482; webpage.
 
-For more information, see - http://www.cypress.com/CYW920819REF-KB-01
+For more information, see - [AIROC&#8482; Bluetooth&#174; products](https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-bluetooth-le-bluetooth-multiprotocol/)
 
 Max UART baud rate is 115200
 
